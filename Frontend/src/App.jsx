@@ -12,8 +12,7 @@ function App() {
 
         {/* Public Routes Wrapper */}
         <Route element={<PublicRoutes />}>
-          <Route path="/login" element={<AuthForm />} />
-          <Route path="/sign-up" element={<AuthForm />} />
+          <Route path="/auth" element={<AuthForm />} />
         </Route>
 
         {/* Protected Routes Wrapper */}
