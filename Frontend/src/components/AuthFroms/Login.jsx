@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash, FaLock , FaLockOpen , FaUser, FaGoogle } from "react-icons/fa";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import GoogleLoginButton from './GoogleLoginButton';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,10 +14,22 @@ const Login = () => {
     console.log("Email:", email, "Password:", password);
   };
 
-  const handleGoogleLogin = () => {
-    // Implement Google auth logic here
-    console.log("Logging in with Google");
+  // const handleGoogleLogin = () => {
+  //   // Implement Google auth logic here
+  //   console.log("Logging in with Google");
+  // };
+
+  const handleLoginSuccess = (data) => {
+      // Save token to localStorage or context
+      localStorage.setItem('token', data.key);
+      // Redirect or update state
+      console.log('Logged in successfully!');
   };
+
+  const handleLoginFailure = (error) => {
+      console.error('Login failed:', error);
+  };
+
 
   return (
     <div className="relative w-full h-full  bg-white max-sm:pt-6 sm:py-10 md:py-14 md:px-10 px-6 sm:px-4 flex flex-col justify-center">
@@ -96,22 +109,10 @@ const Login = () => {
         </div>
 
         {/* Google Login Button */}
-        <Button
-          variant="outlined"
-          fullWidth
-          className="!py-2 !text-base !font-medium !mb-4 !rounded-lg"
-          startIcon={<FaGoogle className="text-gray-500" />}
-          onClick={handleGoogleLogin}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            textTransform: 'none'
-          }}
-        >
-          Continue with Google
-        </Button>
+        <GoogleLoginButton 
+            onSuccess={handleLoginSuccess}
+            onFailure={handleLoginFailure}
+        />
       </form>
     </div>
   );
